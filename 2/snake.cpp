@@ -135,10 +135,18 @@ void Logic()
         break;
     }
 
-    if (x < 0 || y < 0 || x > width - 1 || y > height - 1)
-    {
-        gameOver = true;
-    }
+    // if (x < 0 || y < 0 || x > width - 1 || y > height - 1)
+    // {
+    //     gameOver = true;
+    // }
+    if (x >= width)
+        x = 0;
+    else if (x < 0)
+        x = width - 1;
+    if (x >= height)
+        y = 0;
+    else if (y < 0)
+        y = height - 1;
     if (x == fruitX && y == fruitY)
     {
 
