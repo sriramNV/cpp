@@ -173,14 +173,145 @@ public:
     void Draw()
     {
         system("cls");
+        for (int i = 0; i < width + 2; i++)
+            cout << "\xB2";
+        cout << endl;
+
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                int ballx = ball->getX();
+                int bally = ball->getY();
+                int player1x = p1->getX();
+                int player1y = p1->getY();
+                int player2x = p2->getX();
+                int player2y = p2->getY();
+
+                if (j == 0)
+                    cout << "\xB2";
+
+                if (ballx == j && bally == i)
+                    cout << "O"; // ball
+                else if (player1x == j && player1y == i)
+                    cout << "\xDB"; // player 1
+                else if (player1x == j && player1y + 1 == i)
+                    cout << "\xDB"; // player 1
+                else if (player1x == j && player1y + 2 == i)
+                    cout << "\xDB"; // player 1
+                else if (player1x == j && player1y + 3 == i)
+                    cout << "\xDB"; // player 1
+                else if (player2x == j && player2y == i)
+                    cout << "\xDB"; // player 2
+                else if (player2x == j && player2y + 1 == i)
+                    cout << "\xDB"; // player 2
+                else if (player2x == j && player2y + 2 == i)
+                    cout << "\xDB"; // player 2
+                else if (player2x == j && player2y + 3 == i)
+                    cout << "\xDB"; // player 2
+
+                else
+                    cout << " ";
+
+                if (j == width - 1)
+                    cout << "\xB2";
+            }
+            cout << endl;
+        }
+
+        for (int i = 0; i < width + 2; i++)
+            cout << "\xB2";
+        cout << endl;
+
+        cout << "Player 1: " << score1 << endl;
+        cout << "Player 2: " << score2 << endl;
     }
 
-    void Input() {}
-    void Logic() {}
+    void Input()
+    {
+        ball->Move();
+        int ballx = ball->getX();
+        int bally = ball->getY();
+        int player1x = p1->getX();
+        int player1y = p1->getY();
+        int player2x = p2->getX();
+        int player2y = p2->getY();
+
+        if (_kbhit())
+        {
+            char current = _getch();
+            if (current == up1)
+                if (player1y > 0)
+                    p1->moveUp();
+            if (current == up2)
+                if (player2y > 0)
+                    p2->moveUp();
+            if (current == down1)
+                if (player1y + 4 < height)
+                    p2->moveDown();
+            if (current == down2)
+                if (player2y + 4 < height)
+                    p2->moveDown();
+
+            if (ball->getDirection() == STOP)
+                ball->randomDirection();
+
+            if (current == 'q')
+                quit = true;
+        }
+    }
+    void Logic()
+    {
+        int ballx = ball->getX();
+        int bally = ball->getY();
+        int player1x = p1->getX();
+        int player1y = p1->getY();
+        int player2x = p2->getX();
+        int player2y = p2->getY();
+
+        // left paddle
+        for (int i = 0; i < 4; i++)
+            if (ballx == player1x + 1)
+                if (bally == player1y + i)
+                    ball->changeDirection((eDirection)((rand() % 3) + 4));
+
+        // right paddle
+        for (int i = 0; i < 4; i++)
+            if (ballx == player2x - 1)
+                if (bally == player2y + i)
+                    ball->changeDirection((eDirection)((rand() % 3) + 1));
+
+        // bottom wall
+        if (bally == height - 1)
+            ball->changeDirection(ball->getDirection() == DOWNRIGHT ? UPRIGHT : UPLEFT);
+
+        // top wall
+        if (bally == 0)
+            ball->changeDirection(ball->getDirection() == DOWNRIGHT ? DOWNRIGHT : DOWNLEFT);
+
+        // score for p1
+        if (ballx == width - 1)
+            scoreUp(p1);
+
+        // score for p2
+        if (ballx == 0)
+            scoreUp(p2);
+    }
+
+    void Run()
+    {
+        while (!quit)
+        {
+            Draw();
+            Input();
+            Logic();
+        }
+    }
 };
 
 int main()
 {
-
+    cGameManager cG(40, 20);
+    cG.Run();
     return 0;
 }
