@@ -248,7 +248,7 @@ public:
                     p2->moveUp();
             if (current == down1)
                 if (player1y + 4 < height)
-                    p2->moveDown();
+                    p1->moveDown();
             if (current == down2)
                 if (player2y + 4 < height)
                     p2->moveDown();
