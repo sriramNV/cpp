@@ -39,7 +39,7 @@ int main()
 
     cout << "Enter a line: ";
     getline(cin, str);
-
-    cout << "the largest work in the string: '" << largest(str) << "'";
+    str = largest(str);
+    cout << "the largest work in the string: '" << str << "' of length: " << str.length();
     return 0;
 }
