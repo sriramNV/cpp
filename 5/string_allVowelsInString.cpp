@@ -3,21 +3,22 @@
 
 bool vowels(std::string str)
 {
-    char vowel[] = {'a', 'e', 'i', 'o', 'u'};
+    bool flagA = false, flagE = false, flagI = false, flagO = false, flagU = false;
 
     for (int i = 0; i < str.length(); i++)
     {
-        if (str.std::string::contains(vowel[i]))
-        {
-
-            std::cout << "\nvowle: " << str[i] << std::endl;
-            continue;
-        }
-
-        else
-            return false;
+        if (str[i] == 'A' || str[i] == 'a')
+            flagA = true;
+        else if (str[i] == 'E' || str[i] == 'e')
+            flagE = true;
+        else if (str[i] == 'I' || str[i] == 'i')
+            flagI = true;
+        else if (str[i] == 'O' || str[i] == 'o')
+            flagO = true;
+        else if (str[i] == 'U' || str[i] == 'u')
+            flagU = true;
     }
-    return true;
+    return (flagA & flagE & flagI & flagO & flagU);
 }
 
 int main()
