@@ -25,7 +25,7 @@ int main()
 {
     std::string str;
 
-    std::cout << "Enter a text to be check pallindrome: ";
+    std::cout << "Enter a text to be check: ";
     std::getline(std::cin, str);
 
     std::cout << (vowels(str) ? "the string contains all vowles" : " the string doesnt contain all vowels");
