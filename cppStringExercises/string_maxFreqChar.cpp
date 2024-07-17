@@ -4,8 +4,10 @@
 
 // using namespace std;
 namespace ranges = std::ranges;
+cd
 
-char MostFreq(std::string S)
+    char
+    MostFreq(std::string S)
 {
     int most = INT_MIN;
     char high;
